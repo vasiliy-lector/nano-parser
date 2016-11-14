@@ -1,0 +1,31 @@
+{
+  "name": "nano-parser",
+  "version": "1.0.0",
+  "description": "Tool for parsing ecmascript tagged template strings",
+  "main": "src/parser.js",
+  "scripts": {
+    "test": "istanbul cover ./node_modules/.bin/jasmine --include-all-sources --root=./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vasiliy-lector/nano-parser.git"
+  },
+  "keywords": [
+    "parser",
+    "es6",
+    "tagged",
+    "template",
+    "strings",
+    "nano"
+  ],
+  "author": "Vasiliy Lector",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vasiliy-lector/nano-parser/issues"
+  },
+  "homepage": "https://github.com/vasiliy-lector/nano-parser#readme",
+  "devDependencies": {
+    "istanbul": "1.0.0-alpha.2",
+    "jasmine": "2.4.1"
+  }
+}
