@@ -13,7 +13,6 @@ function getHash(strings) {
 
 function Parser(exec, useCache) {
     if (useCache) {
-        this.useCacheOption = useCache;
         this.originalExec = exec;
         this.exec = this.execCached.bind(this);
     } else {
@@ -47,7 +46,7 @@ Parser.prototype = {
     useCache: function(useCache) {
         useCache = useCache === undefined ? true : useCache;
 
-        return this.useCacheOption === useCache
+        return (useCache && this.originalExec) || (!useCache && !this.originalExec)
             ? this
             : new Parser(this.originalExec || this.exec, useCache);
     },
@@ -248,7 +247,7 @@ function next() {
 function end() {
     return new Parser(function (strings, position) {
         return !strings[position[0]][position[1]] && strings[position[0] + 1] === undefined ? {
-            result: '',
+            result: position[0],
             end: position
         } : false;
     });
