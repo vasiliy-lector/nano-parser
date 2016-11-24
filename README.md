@@ -26,8 +26,11 @@ npm install --save 'nano-parser';
     parser.parse('1abcd'); // undefined
 ```
 
-## Introduction
-With the help of nano-parser, you can create sophisticated parsers, combining simple. It is possible to transform the results using the method **then**, as well as to use the cache to improve performance.
+## Examples of using:
+* [es6x - implementation of jsx features in pure javascript](https://github.com/vasiliy-lector/es6x)
+
+## Overview
+With the help of nano-parser, you can create complex parsers, combining simple. It's possible to transform results using the method **then**, as well as to use the cache to improve performance.
 
 ### Elementary parsers
 **find**, **next** and **end** are most simple parsers. **find** parser designed to search for  strings or regular expressions. **next** and **end** used when parsing an array of strings (useful for es6 template strings).
@@ -39,5 +42,5 @@ With the help of nano-parser, you can create sophisticated parsers, combining si
 **optional**, **required** and **deffered** are subsidiary. **optional** makes parser optional, **required** makes parser strictly necessary and **deferred** provides the possibility to call the parser from itself.
 
 ### Class Parser
-All parsers return a instance of class **Parser**. Therefore, they have the same interface. The **exec** method is internal and is used to call from other parsers. Instead, use the **parse** method. The **parse** method takes the first argument string or array of strings that need to parse, optional second parameter values are values that will be available as the second parameter of the method **then**. To cache the results use **useCache** method.
+All parsers return a instance of class **Parser**. Therefore, they have the same interface. The **exec** method is internal and is used to call from other parsers. Instead, use the **parse** method. The **parse** method takes the first argument string or array of strings, optional second parameter values are values that will be available as the second parameter of the method **then**. To cache the results use **useCache** method.
 
