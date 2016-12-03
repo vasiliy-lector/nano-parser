@@ -7,7 +7,7 @@ const {
     repeat,
     required,
     sequence,
-    deffered
+    defer
 } = require('../src/parser');
 
 function getParser() {
@@ -89,7 +89,7 @@ function getParser() {
                         whiteSpace,
                         placeholder.then(index => values => values[index]),
                         textNode,
-                        deffered(() => component)
+                        defer(() => component)
                     ))),
                     required(sequence(
                         find('</'),

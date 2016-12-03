@@ -10,7 +10,7 @@ npm install --save 'nano-parser';
 ```javascript
     const {
         any,
-        deffered,
+        defer,
         end,
         find,
         next,
@@ -39,7 +39,7 @@ With the help of nano-parser, you can create complex parsers, combining simple. 
 **any**, **sequence** and **repeat** designed to combine other parsers with each other.
 
 ### Subsidiary parsers
-**optional**, **required** and **deffered** are subsidiary. **optional** makes parser optional, **required** makes parser strictly necessary and **deferred** provides the possibility to call the parser from itself.
+**optional**, **required** and **defer** are subsidiary. **optional** makes parser optional, **required** makes parser strictly necessary and **defer** provides the possibility to call the parser from itself.
 
 ### Class Parser
 All parsers return a instance of class **Parser**. Therefore, they have the same interface. The **exec** method is internal and is used to call from other parsers. Instead, use the **parse** method. The **parse** method takes the first argument string or array of strings, optional second parameter values are values that will be available as the second parameter of the method **then**. To cache the results use **useCache** method.

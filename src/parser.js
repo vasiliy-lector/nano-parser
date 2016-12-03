@@ -214,7 +214,7 @@ function repeat(mainPattern, delimeter) {
     });
 }
 
-function deffered(getPattern) {
+function defer(getPattern) {
     var pattern;
 
     return new Parser(function (strings, position, options) {
@@ -262,4 +262,4 @@ exports.optional = optional;
 exports.repeat = repeat;
 exports.required = required;
 exports.sequence = sequence;
-exports.deffered = deffered;
+exports.defer = defer;
