@@ -109,7 +109,7 @@ With **sequence** you can build sequences of parsers.
     expect(parser.parse('abcc1')).toBe('abcc1');
     expect(parser.parse('abcc')).toBe(undefined);
 ```
-In the previous example you can see in action a useful method **then**, which is in any parser. And also, any parser has methods **not** and **useCache**. They return a new parser, so you can easily form a new entity, without affecting the existing:
+In the previous example you can see in action a useful method **then**, which is in any parser. And also, any parser has methods **not** and **useCache**. **then** and **not** return a new parser, so you can easily form a new entity, without affecting the existing:
 ```javascript
     const parser1 = find(/^[a-c]/),
         parser2 = parser1.not(find('b')),
@@ -117,7 +117,7 @@ In the previous example you can see in action a useful method **then**, which is
         parserCached = parser1.useCache();
     expect(parser1).not.toBe(parser2);
     expect(parser1).not.toBe(parser3);
-    expect(parser1).not.toBe(parserCached);
+    expect(parser1).toBe(parserCached);
 ```
 
 ### repeat

@@ -109,7 +109,7 @@ npm install --save 'nano-parser';
     expect(parser.parse('abcc1')).toBe('abcc1');
     expect(parser.parse('abcc')).toBe(undefined);
 ```
-В предыдущем примере вы можете видеть в действии полезный метод **then**, который есть у любого парсера. А так же, у любого парсера есть методы **not** и **useCache**. Они возвращают новый парсер, поэтому можно смело образовывать новые сущности, не затрагивая существующие:
+В предыдущем примере вы можете видеть в действии полезный метод **then**, который есть у любого парсера. А так же, у любого парсера есть методы **not** и **useCache**. **then** и **not** возвращают новый парсер, поэтому можно смело образовывать новые сущности, не затрагивая существующие:
 ```javascript
     const parser1 = find(/^[a-c]/),
         parser2 = parser1.not(find('b')),
@@ -117,7 +117,7 @@ npm install --save 'nano-parser';
         parserCached = parser1.useCache();
     expect(parser1).not.toBe(parser2);
     expect(parser1).not.toBe(parser3);
-    expect(parser1).not.toBe(parserCached);
+    expect(parser1).toBe(parserCached);
 ```
 
 ### repeat

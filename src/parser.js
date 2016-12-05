@@ -11,22 +11,27 @@ function getHash(strings) {
     return result;
 }
 
-function Parser(exec, useCache) {
-    if (useCache) {
-        this.originalExec = exec;
-        this.exec = this.execCached.bind(this);
-    } else {
-        this.exec = exec;
-    }
+function Parser(exec) {
+    this.exec = exec;
 }
 
 Parser.prototype = {
     execCached: function(strings, position, options) {
+        if (options.cacheIndex === undefined) {
+            var hash = getHash(strings);
+            this.cache = this.cache || {};
+            var cache = this.cache[hash];
+            if (!cache) {
+                var nextCache = (this.cache[hash] = []);
+            }
+            options.cache = cache;
+            options.nextCache = nextCache;
+            options.cacheIndex = -1;
+        }
+
         return options.cache
             ? options.cache[++options.cacheIndex]
-            : options.cacheEnabled
-                ? this.buildCache(strings, position, options)
-                : this.originalExec(strings, position, options);
+            : this.buildCache(strings, position, options);
     },
 
     buildCache: function(strings, position, options) {
@@ -46,9 +51,15 @@ Parser.prototype = {
     useCache: function(useCache) {
         useCache = useCache === undefined ? true : useCache;
 
-        return (useCache && this.originalExec) || (!useCache && !this.originalExec)
-            ? this
-            : new Parser(this.originalExec || this.exec, useCache);
+        if (useCache && !this.originalExec) {
+            this.originalExec = this.exec;
+            this.exec = this.execCached.bind(this);
+        } else if (!useCache && this.originalExec) {
+            this.exec = this.originalExec;
+            delete this.originalExec;
+        }
+
+        return this;
     },
 
     not: function(pattern) {
@@ -72,32 +83,11 @@ Parser.prototype = {
         });
     },
 
-    parse: function(string, values, cacheEnabled) {
+    parse: function(string, values) {
         var strings = typeof string === 'string' ? [string] : string,
-            position = [0, 0],
-            cache, nextCache, cacheIndex, hash, options;
+            position = [0, 0];
 
-        cacheEnabled = cacheEnabled === undefined ? true : cacheEnabled;
-
-        if (cacheEnabled) {
-            hash = getHash(strings);
-            this.cache = this.cache || {};
-            cache = this.cache[hash];
-            if (!cache) {
-                nextCache = (this.cache[hash] = []);
-            }
-            cacheIndex = -1;
-        }
-
-        options = {
-            values: values,
-            cache: cache,
-            nextCache: nextCache,
-            cacheIndex: cacheIndex,
-            cacheEnabled: cacheEnabled
-        };
-
-        return (this.exec(strings, position, options) || {}).result;
+        return (this.exec(strings, position, { values: values }) || {}).result;
     }
 };
 

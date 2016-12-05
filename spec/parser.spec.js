@@ -172,26 +172,20 @@ describe('Parser', () => {
             });
 
             it('should correctly work useCache', () => {
-                const pattern = find('a'),
-                    pattern2 = pattern.useCache(),
-                    pattern3 = pattern2.useCache(),
-                    pattern4 = pattern3.useCache(false),
-                    pattern5 = pattern4.useCache(false),
-                    pattern6 = pattern5.useCache();
-
-                expect(pattern).not.toBe(pattern2);
-                expect(pattern3).toBe(pattern2);
-                expect(pattern4).not.toBe(pattern2);
-                expect(pattern5).toBe(pattern4);
-                expect(pattern6).not.toBe(pattern5);
-            });
-
-            it('should work option cacheEnabled', () => {
                 const pattern = find('a').then((result, values) => result + values[0]).useCache();
 
                 expect(pattern.parse('a', ['b'])).toEqual('ab');
                 expect(pattern.parse('a', ['c'])).toEqual('ab');
-                expect(pattern.parse('a', ['c'], false)).toEqual('ac');
+                pattern.useCache(false);
+                expect(pattern.parse('a', ['c'])).toEqual('ac');
+                pattern.useCache(false);
+                expect(pattern.parse('a', ['c'])).toEqual('ac');
+                pattern.useCache();
+                expect(pattern.parse('a', ['c'])).toEqual('ab');
+                expect(pattern.parse('a', ['b'])).toEqual('ab');
+                pattern.useCache();
+                expect(pattern.parse('a', ['c'])).toEqual('ab');
+                expect(pattern.parse('a', ['b'])).toEqual('ab');
             });
         });
 
