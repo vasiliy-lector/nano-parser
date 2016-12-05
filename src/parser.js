@@ -17,35 +17,12 @@ function Parser(exec) {
 
 Parser.prototype = {
     execCached: function(strings, position, options) {
-        if (options.cacheIndex === undefined) {
-            var hash = getHash(strings);
-            this.cache = this.cache || {};
-            var cache = this.cache[hash];
-            if (!cache) {
-                var nextCache = (this.cache[hash] = []);
-            }
-            options.cache = cache;
-            options.nextCache = nextCache;
-            options.cacheIndex = -1;
-        }
+        var hash = options.hash || (options.hash = getHash(strings)),
+            cached = this.cache[hash];
 
-        return options.cache
-            ? options.cache[++options.cacheIndex]
-            : this.buildCache(strings, position, options);
-    },
-
-    buildCache: function(strings, position, options) {
-        var cacheIndex = ++options.cacheIndex,
-            cached = this.originalExec(strings, position, options);
-
-        if (options.cacheIndex > cacheIndex) {
-            options.cacheIndex = cacheIndex;
-            options.nextCache.length = cacheIndex;
-        }
-
-        options.nextCache[cacheIndex] = cached;
-
-        return cached;
+        return cached === undefined
+            ? (this.cache[hash] = this.originalExec(strings, position, options))
+            : cached;
     },
 
     useCache: function(useCache) {
@@ -54,6 +31,7 @@ Parser.prototype = {
         if (useCache && !this.originalExec) {
             this.originalExec = this.exec;
             this.exec = this.execCached.bind(this);
+            this.cache = this.cache || {};
         } else if (!useCache && this.originalExec) {
             this.exec = this.originalExec;
             delete this.originalExec;
