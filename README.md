@@ -36,7 +36,7 @@ With the help of nano-parser, you can create complex parsers, combining simple. 
 **find**, **next** and **end** are most simple parsers. **find** parser designed to search for  strings or regular expressions. **next** and **end** used when parsing an array of strings (useful for es6 template strings).
 
 ### Combinators
-**any**, **sequence** and **repeat** designed to combine other parsers with each other.
+**any**, **conditional**, **sequence** and **repeat** designed to combine other parsers with each other.
 
 ### Subsidiary parsers
 **optional**, **required** and **defer** are subsidiary. **optional** makes parser optional, **required** makes parser strictly necessary and **defer** provides the possibility to call the parser from itself.
@@ -48,7 +48,7 @@ All parsers return a instance of class **Parser**. Therefore, they have the same
 
 ### find
 **find** is used to search for a regular expression or a direct match with a string.
-Примеры:
+Examples:
 ```javascript
     const parser = find('a');
     expect(parser.parse('abc')).toBe('a');
@@ -132,6 +132,22 @@ In the previous example you can see in action a useful method **then**, which is
     expect(parser.parse('a=a b=b c=d')).toEqual([['a', 'a'], ['b', 'b'], ['c', 'd']]);
     expect(parser.parse('a=a b=b x c=d')).toEqual([['a', 'a'], ['b', 'b']]);
     expect(parser.parse('x a=a b=b c=d')).toBe(undefined);
+```
+
+### conditional
+**conditional** is useful when you want to look forward.
+```javascript
+    const condition = find(/[a-z]+\d+/),
+        pattern1 = find(/[a-z]+/),
+        pattern2 = pattern1.then(() => 'x'),
+        parser = conditional(
+            condition,
+            pattern1,
+            pattern2
+        );
+
+    expect(parser.parse('abc')).toBe('x');
+    expect(parser.parse('abc1')).toBe('abc');
 ```
 
 ### optional

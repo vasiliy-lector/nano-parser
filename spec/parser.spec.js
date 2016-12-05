@@ -1,5 +1,6 @@
 const {
     any,
+    conditional,
     next,
     end,
     find,
@@ -215,6 +216,22 @@ describe('Parser', () => {
             });
         });
 
+    });
+
+    describe('method conditional', () => {
+        it('should choose expected pattern', () => {
+            const condition = find(/[a-z]+\d+/),
+                pattern1 = find(/[a-z]+/).then(result => 'id' + result),
+                pattern2 = find(/[a-z]+/),
+                pattern = conditional(
+                    condition,
+                    pattern1,
+                    pattern2
+                );
+
+            expect(pattern.parse('abc')).toBe('abc');
+            expect(pattern.parse('abc1')).toBe('idabc');
+        });
     });
 
     describe('method any', () => {

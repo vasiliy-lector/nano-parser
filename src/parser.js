@@ -145,6 +145,12 @@ function required(pattern) {
     });
 }
 
+function conditional(pattern, success, fail) {
+    return new Parser(function (strings, position, options) {
+        return pattern.exec(strings, position, options) ? success.exec(strings, position, options) : fail.exec(strings, position, options);
+    });
+}
+
 function any() {
     for (var i = 0, l = arguments.length, patterns = Array(l); i < l; i++) {
         patterns[i] = arguments[i];
@@ -255,6 +261,7 @@ function end() {
 
 exports.Parser = Parser;
 exports.any = any;
+exports.conditional = conditional;
 exports.next = next;
 exports.end = end;
 exports.find = find;
