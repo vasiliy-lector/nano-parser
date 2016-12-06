@@ -10,6 +10,7 @@ npm install --save 'nano-parser';
 ```javascript
     const {
         any,
+        conditional,
         defer,
         end,
         find,

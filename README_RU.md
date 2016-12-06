@@ -134,6 +134,22 @@ npm install --save 'nano-parser';
     expect(parser.parse('x a=a b=b c=d')).toBe(undefined);
 ```
 
+### conditional
+**conditional** поможет при необходимости посмотреть вперед.
+```javascript
+    const condition = find(/[a-z]+\d+/),
+        pattern1 = find(/[a-z]+/),
+        pattern2 = pattern1.then(() => 'x'),
+        parser = conditional(
+            condition,
+            pattern1,
+            pattern2
+        );
+
+    expect(parser.parse('abc')).toBe('x');
+    expect(parser.parse('abc1')).toBe('abc');
+```
+
 ### optional
 **optional** делает парсеры необязательными.
 ```javascript
