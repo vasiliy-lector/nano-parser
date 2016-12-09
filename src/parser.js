@@ -119,6 +119,15 @@ function conditional(pattern, success, fail) {
     });
 }
 
+function lookForward(pattern) {
+    return new Parser(function (strings, position, options) {
+        return pattern.exec(strings, position, options) ? {
+            result: true,
+            end: position
+        } : false;
+    });
+}
+
 function any() {
     for (var i = 0, l = arguments.length, patterns = Array(l); i < l; i++) {
         patterns[i] = arguments[i];
@@ -236,5 +245,6 @@ exports.find = find;
 exports.optional = optional;
 exports.repeat = repeat;
 exports.required = required;
+exports.lookForward = lookForward;
 exports.sequence = sequence;
 exports.defer = defer;

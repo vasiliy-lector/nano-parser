@@ -4,6 +4,7 @@ const {
     next,
     end,
     find,
+    lookForward,
     optional,
     repeat,
     required,
@@ -366,6 +367,17 @@ describe('Parser', () => {
         });
     });
 
+    describe('method lookForward', () => {
+        it('should look forward but do not go', () => {
+            const pattern = lookForward(find('abc1'));
+
+            expect(pattern.exec(['abc1'], [0, 0], {})).toEqual({
+                result: true,
+                end: [0, 0]
+            });
+            expect(pattern.exec(['abc2'], [0, 0], {})).toBe(false);
+        });
+    });
 
     describe('method next', () => {
         it('should work', () => {
