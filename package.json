@@ -1,6 +1,6 @@
 {
   "name": "nano-parser",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Tool for parsing ecmascript tagged template strings",
   "main": "src/parser.js",
   "scripts": {
