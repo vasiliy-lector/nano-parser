@@ -239,12 +239,12 @@ function end() {
 exports.Parser = Parser;
 exports.any = any;
 exports.conditional = conditional;
-exports.next = next;
+exports.defer = defer;
 exports.end = end;
 exports.find = find;
+exports.lookForward = lookForward;
+exports.next = next;
 exports.optional = optional;
 exports.repeat = repeat;
 exports.required = required;
-exports.lookForward = lookForward;
 exports.sequence = sequence;
-exports.defer = defer;

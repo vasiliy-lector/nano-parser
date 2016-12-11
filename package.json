@@ -1,7 +1,7 @@
 {
   "name": "nano-parser",
   "version": "1.0.4",
-  "description": "Tool for parsing ecmascript tagged template strings",
+  "description": "Parser combinators library for parsing ecmascript tagged template strings",
   "main": "src/parser.js",
   "scripts": {
     "test": "istanbul cover ./node_modules/.bin/jasmine --include-all-sources --root=./src"
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "parser",
+    "combinators",
     "es6",
     "tagged",
     "template",

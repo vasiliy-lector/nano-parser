@@ -1,5 +1,5 @@
 # nano-parser
-Tool for parsing ecmascript tagged template strings. [Read in russian](https://github.com/vasiliy-lector/nano-parser/blob/master/README_RU.md)
+Parser combinators library for parsing strings and arrays of strings (developed for parsing ecmascript tagged template strings). [Read in russian](https://github.com/vasiliy-lector/nano-parser/blob/master/README_RU.md)
 
 ## Installing
 ```bash
