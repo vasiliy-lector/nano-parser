@@ -68,6 +68,7 @@ Parser.prototype = {
         return (this.exec(strings, position, { values: values }) || {}).result;
     }
 };
+Parser.prototype.map = Parser.prototype.then;
 
 function find(pattern) {
     if (typeof pattern === 'string') {
@@ -119,7 +120,7 @@ function conditional(pattern, success, fail) {
     });
 }
 
-function lookForward(pattern) {
+function test(pattern) {
     return new Parser(function (strings, position, options) {
         return pattern.exec(strings, position, options) ? {
             result: true,
@@ -242,9 +243,9 @@ exports.conditional = conditional;
 exports.defer = defer;
 exports.end = end;
 exports.find = find;
-exports.lookForward = lookForward;
 exports.next = next;
 exports.optional = optional;
 exports.repeat = repeat;
 exports.required = required;
 exports.sequence = sequence;
+exports.test = test;

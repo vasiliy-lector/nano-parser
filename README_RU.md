@@ -82,11 +82,10 @@ npm install --save 'nano-parser';
     const parser = any(
         find(/^[a-c]/),
         find(/^[e-g]/)
-    ).not(find('abcefg'));
+    ).not(find('abc'));
     expect(parser.parse('ab')).toBe('ab');
     expect(parser.parse('fg')).toBe('fg');
-    expect(parser.parse('abcef')).toBe('abcef');
-    expect(parser.parse('abcefg')).toBe(undefined);
+    expect(parser.parse('abc')).toBe(undefined);
 ```
 
 ### sequence

@@ -10,7 +10,6 @@ npm install --save 'nano-parser';
 ```javascript
     const {
         any,
-        conditional,
         defer,
         end,
         find,
@@ -83,11 +82,10 @@ The symbol "^" is recommended to optimize the regular expression.
     const parser = any(
         find(/^[a-c]/),
         find(/^[e-g]/)
-    ).not(find('abcefg'));
+    ).not(find('abc'));
     expect(parser.parse('ab')).toBe('ab');
     expect(parser.parse('fg')).toBe('fg');
-    expect(parser.parse('abcef')).toBe('abcef');
-    expect(parser.parse('abcefg')).toBe(undefined);
+    expect(parser.parse('abc')).toBe(undefined);
 ```
 
 ### sequence
