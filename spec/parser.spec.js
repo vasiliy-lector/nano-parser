@@ -1,15 +1,15 @@
 const {
     any,
     conditional,
-    next,
+    defer,
     end,
+    next,
     find,
-    lookForward,
     optional,
     repeat,
     required,
     sequence,
-    defer
+    test
 } = require('../src/parser');
 
 function getParser() {
@@ -367,9 +367,9 @@ describe('Parser', () => {
         });
     });
 
-    describe('method lookForward', () => {
+    describe('method test', () => {
         it('should look forward but do not go', () => {
-            const pattern = lookForward(find('abc1'));
+            const pattern = test(find('abc1'));
 
             expect(pattern.exec(['abc1'], [0, 0], {})).toEqual({
                 result: true,
