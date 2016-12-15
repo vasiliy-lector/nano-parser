@@ -326,6 +326,17 @@ describe('Parser', () => {
                 end: [0, 2]
             });
         });
+
+        it('should map be alias for then', () => {
+            const pattern = sequence(
+                find('a'),
+                find('b')
+            ).map(value => value[0] + value[1]);
+            expect(pattern.exec(['abc'], [0, 0], {})).toEqual({
+                result: 'ab',
+                end: [0, 2]
+            });
+        });
     });
 
     describe('method repeat', () => {
